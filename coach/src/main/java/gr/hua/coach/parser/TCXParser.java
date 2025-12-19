@@ -47,20 +47,27 @@ public class TCXParser {
         NodeList idNodes = activityElement.getElementsByTagName("Id");
         if (idNodes.getLength() > 0) {
             String idText = idNodes.item(0).getTextContent();
+
             try {
+
                 LocalDateTime startTime = LocalDateTime.parse(idText, d_formatter);
                 activity.setStartTime(startTime);
-            } catch (Exception e) {
-                // If parsing fails, use current time
-                activity.setStartTime(LocalDateTime.now());
+
+            } catch (Exception e) { 
+                throw new IllegalArgumentException(
+                    "Invalid timestamp format in Activity Id: '" + idText + 
+                    "'. Expected format: yyyy-MM-dd'T'HH:mm:ss[.SSS]'Z'", e
+                );
             }
         }
         
         // Parse Laps
         NodeList lapNodes = activityElement.getElementsByTagName("Lap");
+
         for (int i = 0; i < lapNodes.getLength(); i++) {
             Element lapElement = (Element) lapNodes.item(i);
             Lap lap = parseLap(lapElement);
+
             if (lap != null) {
                 activity.addLap(lap);
             }
@@ -76,8 +83,10 @@ public class TCXParser {
         String startTimeStr = lapElement.getAttribute("StartTime");
         if (startTimeStr != null && !startTimeStr.isEmpty()) {
             try {
+
                 LocalDateTime startTime = LocalDateTime.parse(startTimeStr, d_formatter);
                 lap.setStartTime(startTime);
+
             } catch (Exception e) {
                 // Ignore parsing error
             }
@@ -118,15 +127,29 @@ public class TCXParser {
         NodeList timeNodes = trackpointElement.getElementsByTagName("Time");
         if (timeNodes.getLength() > 0) {
             String timeText = timeNodes.item(0).getTextContent();
+
+            
             try {
+                
                 LocalDateTime time = LocalDateTime.parse(timeText, d_formatter);
                 point.setTime(time);
-            } catch (Exception e) {
-                // Ignore parsing error
-            }
+
+            } catch (Exception e) { /* Ignore parsing error */ }
         }
         
-        // Parse position
+
+        /*
+
+        Gia meta:
+        track('Position');
+        track('altitude');
+        track('distance');
+        track('heart rate');
+        track('cadence');
+
+        NOTE: ekana kathe implementation oso pio idio ginetai
+        gia na to genikopoihsoume argotera se ena an ginetai.
+        */
         NodeList positionNodes = trackpointElement.getElementsByTagName("Position");
         if (positionNodes.getLength() > 0) {
             Element positionElement = (Element) positionNodes.item(0);
