@@ -11,7 +11,7 @@ import java.util.*;
 public class TCXParser {
     private static final DateTimeFormatter d_formatter = 
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[.SSS]'Z'");
-        // Exmpl 2015-02-19T09:31:29.000Z
+        // Paradeigma 2015-02-19T09:31:29.000Z
     
     public List<Activity> parse(File file) throws Exception {
         List<Activity> activities = new ArrayList<>();
@@ -43,7 +43,7 @@ public class TCXParser {
         Activity activity = new Activity();
         activity.setSport(sport);
         
-        // Parse Id as start time
+        // Analisi ID os ora eneraksis (start time)
         NodeList idNodes = activityElement.getElementsByTagName("Id");
         if (idNodes.getLength() > 0) {
             String idText = idNodes.item(0).getTextContent();
@@ -61,7 +61,7 @@ public class TCXParser {
             }
         }
         
-        // Parse Laps
+        // Analisi gyron (Laps)
         NodeList lapNodes = activityElement.getElementsByTagName("Lap");
 
         for (int i = 0; i < lapNodes.getLength(); i++) {
@@ -123,7 +123,7 @@ public class TCXParser {
     private TrackPoint parseTrackPoint(Element trackpointElement) {
         TrackPoint point = new TrackPoint();
         
-        // Parse time
+        // Analysi xronou trackpoint
         NodeList timeNodes = trackpointElement.getElementsByTagName("Time");
         if (timeNodes.getLength() > 0) {
             String timeText = timeNodes.item(0).getTextContent();
@@ -175,7 +175,7 @@ public class TCXParser {
             }
         }
         
-        // Parse altitude
+        // Ypologismos ypsometrou (altitude)
         NodeList altNodes = trackpointElement.getElementsByTagName("AltitudeMeters");
         if (altNodes.getLength() > 0) {
             try {
@@ -186,7 +186,7 @@ public class TCXParser {
             }
         }
         
-        // Parse distance
+        // Ypologismos apostasis (distance)
         NodeList distNodes = trackpointElement.getElementsByTagName("DistanceMeters");
         if (distNodes.getLength() > 0) {
             try {
@@ -197,7 +197,7 @@ public class TCXParser {
             }
         }
         
-        // Parse heart rate
+        // Ypologismos kardiakon palmon (heart rate)
         NodeList hrNodes = trackpointElement.getElementsByTagName("HeartRateBpm");
         if (hrNodes.getLength() > 0) {
             Element hrElement = (Element) hrNodes.item(0);
@@ -212,7 +212,7 @@ public class TCXParser {
             }
         }
         
-        // Parse cadence
+        // Ypologismos ritmon (cadence)
         NodeList cadenceNodes = trackpointElement.getElementsByTagName("Cadence");
         if (cadenceNodes.getLength() > 0) {
             try {

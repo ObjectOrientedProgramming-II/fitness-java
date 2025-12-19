@@ -24,7 +24,7 @@ public class CLI implements IUI {
             System.out.println("Activity: " + activity.getSport());
             System.out.println("=".repeat(50));
             
-            // Calculate and display statistics
+            // Ypologismos kai emfanisi statistikon
             double totalTime = statsCalc.calculateTotalTime(activity);
             double totalDistance = statsCalc.calculateTotalDistance(activity);
             double avgSpeed = statsCalc.calculateAverageSpeed(activity);
@@ -48,7 +48,7 @@ public class CLI implements IUI {
                 System.out.printf("Avg Heart Rate: %.0f bpm%n", avgHeartRate);
             }
             
-            // Calculate calories if weight is provided
+            // Ypologismos kai emfanisi thermidon an exei dothei varos
             if (weight > 0) {
                 double calories = caloriesCalc.calculateCaloriesSimple(activity, weight);
                 System.out.printf("Calories burned: %.0f kcal%n", calories);
