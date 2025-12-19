@@ -8,6 +8,10 @@ import java.util.*;
 import java.io.File;
 
 public class Main {
+    /*
+    AM: it2024100
+    AM: it2024028
+    */
     private static int weight = -1;
     
     public static void main(String[] args) {
