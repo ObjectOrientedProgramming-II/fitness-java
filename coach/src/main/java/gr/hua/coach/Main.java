@@ -69,9 +69,11 @@ public class Main {
             }
             
             try {
+
                 List<Activity> activities = parser.parse(file);
                 allActivities.addAll(activities);
                 System.out.println("Successfully parsed: " + filePath);
+            
             } catch (Exception e) {
                 System.err.println("Error parsing " + filePath + ": " + e.getMessage());
             }
