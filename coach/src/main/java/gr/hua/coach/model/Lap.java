@@ -12,11 +12,6 @@ public class Lap {
         this.tracks = new ArrayList<>();
     }
     
-    public Lap(LocalDateTime startTime) {
-        this.startTime = startTime;
-        this.tracks = new ArrayList<>();
-    }
-    
     // Getters and setters
     public LocalDateTime getStartTime() { return startTime; }
     public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
