@@ -13,12 +13,6 @@ public class Activity {
         this.laps = new ArrayList<>();
     }
     
-    public Activity(String sport, LocalDateTime startTime) {
-        this.sport = sport;
-        this.startTime = startTime;
-        this.laps = new ArrayList<>();
-    }
-    
     // Getters and setters
     public String getSport() { return sport; }
     public void setSport(String sport) { this.sport = sport; }

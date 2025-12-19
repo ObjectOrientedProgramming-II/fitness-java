@@ -9,8 +9,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class TCXParser {
-    private static final DateTimeFormatter formatter = 
+    private static final DateTimeFormatter d_formatter = 
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[.SSS]'Z'");
+        // Exmpl 2015-02-19T09:31:29.000Z
     
     public List<Activity> parse(File file) throws Exception {
         List<Activity> activities = new ArrayList<>();
@@ -47,7 +48,7 @@ public class TCXParser {
         if (idNodes.getLength() > 0) {
             String idText = idNodes.item(0).getTextContent();
             try {
-                LocalDateTime startTime = LocalDateTime.parse(idText, formatter);
+                LocalDateTime startTime = LocalDateTime.parse(idText, d_formatter);
                 activity.setStartTime(startTime);
             } catch (Exception e) {
                 // If parsing fails, use current time
@@ -75,7 +76,7 @@ public class TCXParser {
         String startTimeStr = lapElement.getAttribute("StartTime");
         if (startTimeStr != null && !startTimeStr.isEmpty()) {
             try {
-                LocalDateTime startTime = LocalDateTime.parse(startTimeStr, formatter);
+                LocalDateTime startTime = LocalDateTime.parse(startTimeStr, d_formatter);
                 lap.setStartTime(startTime);
             } catch (Exception e) {
                 // Ignore parsing error
@@ -118,7 +119,7 @@ public class TCXParser {
         if (timeNodes.getLength() > 0) {
             String timeText = timeNodes.item(0).getTextContent();
             try {
-                LocalDateTime time = LocalDateTime.parse(timeText, formatter);
+                LocalDateTime time = LocalDateTime.parse(timeText, d_formatter);
                 point.setTime(time);
             } catch (Exception e) {
                 // Ignore parsing error
