@@ -79,7 +79,6 @@ public class TCXParser {
     private Lap parseLap(Element lapElement) {
         Lap lap = new Lap();
         
-        // Parse lap start time
         String startTimeStr = lapElement.getAttribute("StartTime");
         if (startTimeStr != null && !startTimeStr.isEmpty()) {
             try {
@@ -88,11 +87,9 @@ public class TCXParser {
                 lap.setStartTime(startTime);
 
             } catch (Exception e) {
-                // Ignore parsing error
             }
         }
         
-        // Parse Tracks
         NodeList trackNodes = lapElement.getElementsByTagName("Track");
         for (int i = 0; i < trackNodes.getLength(); i++) {
             Element trackElement = (Element) trackNodes.item(i);
@@ -160,7 +157,6 @@ public class TCXParser {
                     double latitude = Double.parseDouble(latNodes.item(0).getTextContent());
                     point.setLatitude(latitude);
                 } catch (NumberFormatException e) {
-                    // Ignore parsing error
                 }
             }
             
@@ -170,7 +166,6 @@ public class TCXParser {
                     double longitude = Double.parseDouble(lonNodes.item(0).getTextContent());
                     point.setLongitude(longitude);
                 } catch (NumberFormatException e) {
-                    // Ignore parsing error
                 }
             }
         }
@@ -182,7 +177,6 @@ public class TCXParser {
                 double altitude = Double.parseDouble(altNodes.item(0).getTextContent());
                 point.setAltitude(altitude);
             } catch (NumberFormatException e) {
-                // Ignore parsing error
             }
         }
         
@@ -193,7 +187,6 @@ public class TCXParser {
                 double distance = Double.parseDouble(distNodes.item(0).getTextContent());
                 point.setDistance(distance);
             } catch (NumberFormatException e) {
-                // Ignore parsing error
             }
         }
         
@@ -207,7 +200,6 @@ public class TCXParser {
                     int heartRate = Integer.parseInt(valueNodes.item(0).getTextContent());
                     point.setHeartRate(heartRate);
                 } catch (NumberFormatException e) {
-                    // Ignore parsing error
                 }
             }
         }
@@ -219,7 +211,6 @@ public class TCXParser {
                 double cadence = Double.parseDouble(cadenceNodes.item(0).getTextContent());
                 point.setCadence(cadence);
             } catch (NumberFormatException e) {
-                // Ignore parsing error
             }
         }
         

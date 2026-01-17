@@ -10,7 +10,6 @@ public class Track {
         this.trackPoints = new ArrayList<>();
     }
     
-    // Getters kai setters
     public List<TrackPoint> getTrackPoints() { return trackPoints; }
     public void setTrackPoints(List<TrackPoint> trackPoints) { this.trackPoints = trackPoints; }
     

@@ -15,6 +15,25 @@ public class CaloriesCalculator {
         
         return multiplier * weight * totalTimeHours;
     }
+
+    public double calculateCaloriesAdvanced(
+        double weight,
+        double hr,
+        int age,
+        double minutes,
+        String gender
+    ) {
+        if ("Male".equals(gender)) {
+            return Math.max(
+                (-55.0969 + (0.6309 * hr) + (0.1966 * weight) + (0.2017 * age)) * minutes / 4.184,
+                0
+            );
+        } 
+        return Math.max(
+            (-20.4022 + (0.4472 * hr) + (0.1263 * weight) + (0.074 * age)) * minutes / 4.184,
+            0
+        );
+    }
     
     private double getMultiplierForSport(String sport) {
         if (sport == null) {

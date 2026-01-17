@@ -13,7 +13,6 @@ public class Activity {
         this.laps = new ArrayList<>();
     }
     
-    // Getters and setters
     public String getSport() { return sport; }
     public void setSport(String sport) { this.sport = sport; }
     
