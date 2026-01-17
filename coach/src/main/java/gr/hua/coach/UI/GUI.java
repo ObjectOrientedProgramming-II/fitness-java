@@ -424,7 +424,7 @@ public class GUI extends Application implements IUI {
         }
         
         double minutes = statsCalc.calculateTotalTime(activity) / 60.0;
-        return caloriesCalc.calculateCaloriesAdvanced(minutes, hr, userAge, minutes, userGender);
+        return caloriesCalc.calculateCaloriesAdvanced(userWeight, hr, userAge, minutes, userGender);
     }
     
     private void updateGoal() {
