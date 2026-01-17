@@ -279,10 +279,8 @@ public class GUI extends Application implements IUI {
         });
         
         dialog.showAndWait().ifPresent(activity -> {
-            if (activity != null) {
-                activities.add(activity);
-                refreshAll();
-            }
+            activities.add(activity);
+            refreshAll();
         });
     }
     
