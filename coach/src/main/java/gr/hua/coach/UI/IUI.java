@@ -1,15 +1,10 @@
 package gr.hua.coach.UI;
 
+import gr.hua.coach.model.Activity;
 import java.util.List;
 
-import gr.hua.coach.model.Activity;
-
 public interface IUI {
-    public void displayStatistics(
-        List<Activity> activities,
-        int weight
-    );
-
-
-    public void showUsage();
+    void displayStatistics(List<Activity> activities, int weight);
+    
+    void showUsage();
 }

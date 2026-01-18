@@ -1,21 +1,40 @@
 package gr.hua.coach.UI;
 
-import java.util.List;
-
 import gr.hua.coach.calculator.CaloriesCalculator;
 import gr.hua.coach.calculator.StatisticsCalculator;
 import gr.hua.coach.model.Activity;
+import gr.hua.coach.service.StatsService;
+import gr.hua.coach.state.AppState;
 
+import java.util.List;
+
+/**
+ * Command-line interface for displaying activity statistics.
+ * Uses services for calculations, handles only output formatting.
+ */
 public class CLI implements IUI {
+    
+    private final StatsService statsService;
+    
     public CLI() {
-        
+        // Create lightweight state just for CLI
+        AppState state = new AppState();
+        this.statsService = new StatsService(state);
     }
-
+    
     @Override
-    public void displayStatistics(
-        List<Activity> activities,
-        int weight
-    ) {
+    public void displayStatistics(List<Activity> activities, int weight) {
+        if (activities.isEmpty()) {
+            System.out.println("No activities found in the provided files.");
+            return;
+        }
+        
+        // Set profile if weight provided
+        if (weight > 0) {
+            statsService.setProfile(weight, 0, "Male", false);
+        }
+        
+        // Use calculator directly for CLI (simpler)
         StatisticsCalculator statsCalc = new StatisticsCalculator();
         CaloriesCalculator caloriesCalc = new CaloriesCalculator();
         
@@ -24,7 +43,6 @@ public class CLI implements IUI {
             System.out.println("Activity: " + activity.getSport());
             System.out.println("=".repeat(50));
             
-            // Ypologismos kai emfanisi statistikon
             double totalTime = statsCalc.calculateTotalTime(activity);
             double totalDistance = statsCalc.calculateTotalDistance(activity);
             double avgSpeed = statsCalc.calculateAverageSpeed(activity);
@@ -48,16 +66,25 @@ public class CLI implements IUI {
                 System.out.printf("Avg Heart Rate: %.0f bpm%n", avgHeartRate);
             }
             
-            // Ypologismos kai emfanisi thermidon an exei dothei varos
             if (weight > 0) {
                 double calories = caloriesCalc.calculateCaloriesSimple(activity, weight);
                 System.out.printf("Calories burned: %.0f kcal%n", calories);
             }
         }
-        
-        if (activities.isEmpty()) {
-            System.out.println("No activities found in the provided files.");
-        }
+    }
+    
+    @Override
+    public void showUsage() {
+        System.out.println("Fitness Activity Analyzer");
+        System.out.println("==========================");
+        System.out.println("Usage: java -jar fitness-coach.jar [options] <file1.tcx> [file2.tcx ...]");
+        System.out.println("\nOptions:");
+        System.out.println("  -w <weight>   Weight in kg (for calorie calculation)");
+        System.out.println("  --gui, -g     Launch graphical interface");
+        System.out.println("\nExamples:");
+        System.out.println("  java -jar fitness-coach.jar activity.tcx");
+        System.out.println("  java -jar fitness-coach.jar -w 70 run1.tcx run2.tcx");
+        System.out.println("  java -jar fitness-coach.jar --gui");
     }
     
     private static String formatTime(double seconds) {
@@ -70,17 +97,5 @@ public class CLI implements IUI {
         } else {
             return String.format("%02d:%02d", minutes, secs);
         }
-    }
-
-    public void showUsage() {
-        System.out.println("Fitness Activity Analyzer");
-        System.out.println("==========================");
-        System.out.println("Usage: java -cp target/classes gr.hua.coach.Main [options] <file1.tcx> [file2.tcx ...]");
-        System.out.println("\nOptions:");
-        System.out.println("  -w <weight>   Weight in kg (for calorie calculation)");
-        System.out.println("\nExamples:");
-        System.out.println("  java -cp target/classes gr.hua.coach.Main activity.tcx");
-        System.out.println("  java -cp target/classes gr.hua.coach.Main -w 70 run1.tcx run2.tcx");
-        System.out.println("  java -cp target/classes gr.hua.coach.Main -w 65 *.tcx");
     }
 }

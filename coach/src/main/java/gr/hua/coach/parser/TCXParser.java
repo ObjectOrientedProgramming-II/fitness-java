@@ -11,7 +11,7 @@ import java.util.*;
 public class TCXParser {
     private static final DateTimeFormatter d_formatter = 
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[.SSS]'Z'");
-        // Paradeigma 2015-02-19T09:31:29.000Z
+        // Paradeigma 2026-01-18T09:31:29.000Z
     
     public List<Activity> parse(File file) throws Exception {
         List<Activity> activities = new ArrayList<>();

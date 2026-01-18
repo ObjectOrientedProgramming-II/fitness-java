@@ -8,6 +8,10 @@ import gr.hua.coach.parser.TCXParser;
 import java.util.*;
 import java.io.File;
 
+/**
+ * CLI mode: java -jar fitness-coach.jar [options] file1.tcx file2.tcx
+ * GUI mode: java -jar fitness-coach.jar --gui
+ */
 public class Main {
     /*
         AM: it2024028
@@ -38,7 +42,9 @@ public class Main {
     
     private static boolean hasGuiFlag(String[] args) {
         for (String arg : args) {
-            if (arg.equals("--gui") || arg.equals("-g")) { return true; }
+            if (arg.equals("--gui") || arg.equals("-g")) {
+                return true;
+            }
         }
         return false;
     }
@@ -49,13 +55,17 @@ public class Main {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-w") && i + 1 < args.length) {
                 try {
-                    weight = Integer.parseInt(args[i + 1]);i++;
+                    weight = Integer.parseInt(args[i + 1]);
+                    i++; // Skip next arg (weight value)
                 } catch (NumberFormatException e) {
                     System.err.println("Error: Weight must be a number");
                     System.exit(1);
                 }
-            } else if (args[i].equals("--gui") || args[i].equals("-g")) { continue; } 
-            else if (args[i].endsWith(".tcx")) { tcxFiles.add(args[i]); }
+            } else if (args[i].equals("--gui") || args[i].equals("-g")) {
+                continue; // Already handled
+            } else if (args[i].endsWith(".tcx")) {
+                tcxFiles.add(args[i]);
+            }
         }
         
         return tcxFiles;
