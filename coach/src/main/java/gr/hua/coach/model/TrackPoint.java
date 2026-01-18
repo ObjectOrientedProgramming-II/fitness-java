@@ -11,7 +11,6 @@ public class TrackPoint {
     private Integer heartRate;
     private Double cadence;
     
-    // Getters kai setters
     public LocalDateTime getTime() { return time; }
     public void setTime(LocalDateTime time) { this.time = time; }
     

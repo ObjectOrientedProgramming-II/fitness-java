@@ -8,16 +8,11 @@ import gr.hua.coach.state.AppState;
 
 import java.util.List;
 
-/**
- * Command-line interface for displaying activity statistics.
- * Uses services for calculations, handles only output formatting.
- */
 public class CLI implements IUI {
     
     private final StatsService statsService;
     
     public CLI() {
-        // Create lightweight state just for CLI
         AppState state = new AppState();
         this.statsService = new StatsService(state);
     }
@@ -29,12 +24,10 @@ public class CLI implements IUI {
             return;
         }
         
-        // Set profile if weight provided
         if (weight > 0) {
             statsService.setProfile(weight, 0, "Male", false);
         }
         
-        // Use calculator directly for CLI (simpler)
         StatisticsCalculator statsCalc = new StatisticsCalculator();
         CaloriesCalculator caloriesCalc = new CaloriesCalculator();
         

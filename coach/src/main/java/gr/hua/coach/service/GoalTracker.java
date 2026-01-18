@@ -1,4 +1,3 @@
-// Save as: src/main/java/gr/hua/coach/service/GoalTracker.java
 package gr.hua.coach.service;
 
 import gr.hua.coach.event.Events;
@@ -6,9 +5,6 @@ import gr.hua.coach.event.Events;
 import java.time.LocalDate;
 import java.util.*;
 
-/**
- * Tracks daily calorie goals - simple version
- */
 public class GoalTracker {
     
     private double dailyGoal = 0;

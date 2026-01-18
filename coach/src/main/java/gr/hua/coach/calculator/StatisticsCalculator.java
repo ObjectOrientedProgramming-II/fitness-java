@@ -35,12 +35,10 @@ public class StatisticsCalculator {
             for (Track track : lap.getTracks()) {
                 List<TrackPoint> points = track.getTrackPoints();
                 if (!points.isEmpty()) {
-                    // Use the last trackpoint's distance if available
                     TrackPoint lastPoint = points.get(points.size() - 1);
                     if (lastPoint.getDistance() != null) {
                         totalDistance += lastPoint.getDistance();
                     } else {
-                        // Calculate distance from coordinates if no distance field
                         totalDistance += calculateDistanceFromCoordinates(points);
                     }
                 }

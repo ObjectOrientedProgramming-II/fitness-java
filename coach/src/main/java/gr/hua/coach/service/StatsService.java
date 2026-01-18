@@ -62,7 +62,6 @@ public class StatsService {
         
         double totalCal = 0, totalTime = 0, totalDist = 0;
         
-        // Clear goal tracker before recalculating
         goalTracker.clearCalories();
         
         for (int i = 0; i < activities.size(); i++) {
@@ -75,7 +74,6 @@ public class StatsService {
             double hr = statsCalc.calculateAverageHeartRate(a);
             double cal = calculateCalories(a, hr);
             
-            // Record calories by date for goal tracking
             if (a.getStartTime() != null && cal > 0) {
                 goalTracker.recordCalories(a.getStartTime().toLocalDate(), cal);
             }
@@ -116,7 +114,6 @@ public class StatsService {
         sb.append(String.format("Total Distance:    %.2f km\n", totalDist / 1000));
         sb.append(String.format("Total Calories:    %.0f kcal\n", totalCal));
         
-        // Add goal report
         if (goalTracker.hasGoal()) {
             sb.append("\n");
             sb.append(goalTracker.generateReport());

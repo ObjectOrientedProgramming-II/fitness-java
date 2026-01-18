@@ -56,13 +56,13 @@ public class Main {
             if (args[i].equals("-w") && i + 1 < args.length) {
                 try {
                     weight = Integer.parseInt(args[i + 1]);
-                    i++; // Skip next arg (weight value)
+                    i++; 
                 } catch (NumberFormatException e) {
                     System.err.println("Error: Weight must be a number");
                     System.exit(1);
                 }
             } else if (args[i].equals("--gui") || args[i].equals("-g")) {
-                continue; // Already handled
+                continue; 
             } else if (args[i].endsWith(".tcx")) {
                 tcxFiles.add(args[i]);
             }
