@@ -28,9 +28,9 @@ public class GUI extends Application {
     
     private ListView<String> activityListView;
     private TextArea statsTextArea;
-    private TextField weightField, ageField, goalField;
+    private TextField weightField, ageField, goalField, rhrField;
     private ComboBox<String> genderCombo;
-    private CheckBox advancedCheck;
+    private CheckBox advancedCheck, zoneAnalysisCheck, vo2maxCheck;
     private Label goalLabel, stateLabel;
     
     public static void main(String[] args) {
@@ -52,7 +52,7 @@ public class GUI extends Application {
         root.setRight(createProfilePanel());
         root.setBottom(createStatusBar());
         
-        stage.setScene(new Scene(root, 1200, 700));
+        stage.setScene(new Scene(root, 1400, 750));
         stage.show();
     }
     
@@ -136,7 +136,7 @@ public class GUI extends Application {
     private VBox createProfilePanel() {
         VBox box = new VBox(15);
         box.setPadding(new Insets(10));
-        box.setPrefWidth(280);
+        box.setPrefWidth(320);
         
         Label profileTitle = new Label("User Profile");
         profileTitle.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
@@ -149,6 +149,8 @@ public class GUI extends Application {
         weightField.setPromptText("70");
         ageField = new TextField();
         ageField.setPromptText("25");
+        rhrField = new TextField();
+        rhrField.setPromptText("60");
         genderCombo = new ComboBox<>();
         genderCombo.getItems().addAll("Male", "Female");
         genderCombo.setValue("Male");
@@ -159,14 +161,49 @@ public class GUI extends Application {
         grid.add(ageField, 1, 1);
         grid.add(new Label("Gender:"), 0, 2);
         grid.add(genderCombo, 1, 2);
+        grid.add(new Label("Resting HR:"), 0, 3);
+        grid.add(rhrField, 1, 3);
         
         Button saveBtn = new Button("Save Profile");
         saveBtn.setMaxWidth(Double.MAX_VALUE);
         saveBtn.setOnAction(e -> saveProfile());
         
-        advancedCheck = new CheckBox("Use Advanced Calories (HR-based)");
+        Label calcOptionsTitle = new Label("Calorie Calculation Options");
+        calcOptionsTitle.setStyle("-fx-font-size: 13px; -fx-font-weight: bold;");
+        
+        advancedCheck = new CheckBox("Use Advanced (HR-based)");
         advancedCheck.setWrapText(true);
-        advancedCheck.setOnAction(e -> saveProfile());
+        advancedCheck.setOnAction(e -> {
+            if (advancedCheck.isSelected()) {
+                zoneAnalysisCheck.setSelected(false);
+                vo2maxCheck.setSelected(false);
+            }
+            saveProfile();
+        });
+        
+        zoneAnalysisCheck = new CheckBox("Use Zone Analysis (Bonus)");
+        zoneAnalysisCheck.setWrapText(true);
+        zoneAnalysisCheck.setOnAction(e -> {
+            if (zoneAnalysisCheck.isSelected()) {
+                advancedCheck.setSelected(false);
+                vo2maxCheck.setSelected(false);
+            }
+            saveProfile();
+        });
+        
+        vo2maxCheck = new CheckBox("Use VO2 Max (Bonus)");
+        vo2maxCheck.setWrapText(true);
+        vo2maxCheck.setOnAction(e -> {
+            if (vo2maxCheck.isSelected()) {
+                advancedCheck.setSelected(false);
+                zoneAnalysisCheck.setSelected(false);
+            }
+            saveProfile();
+        });
+        
+        Label note = new Label("Note: Resting HR required for VO2 Max");
+        note.setStyle("-fx-font-size: 10px; -fx-text-fill: #666;");
+        note.setWrapText(true);
         
         Label goalTitle = new Label("Daily Goal");
         goalTitle.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
@@ -186,7 +223,11 @@ public class GUI extends Application {
         box.getChildren().addAll(
             profileTitle, grid, saveBtn,
             new Separator(),
+            calcOptionsTitle,
             advancedCheck,
+            zoneAnalysisCheck,
+            vo2maxCheck,
+            note,
             new Separator(),
             goalTitle, goalBox, goalLabel
         );
@@ -306,8 +347,16 @@ public class GUI extends Application {
             int age = parseInt(ageField.getText());
             String gender = genderCombo.getValue();
             boolean advanced = advancedCheck.isSelected();
+            int rhr = parseInt(rhrField.getText());
             
             stats.setProfile(weight, age, gender, advanced);
+            
+            if (rhr > 0) {
+                stats.setRestingHeartRate(rhr);
+            }
+            
+            stats.setUseZoneAnalysis(zoneAnalysisCheck.isSelected());
+            stats.setUseVO2Max(vo2maxCheck.isSelected());
             
             if (!activities.isEmpty()) {
                 computeStats();

@@ -8,7 +8,7 @@ import gr.hua.coach.state.AppState;
 
 import java.util.List;
 
-public class CLI implements IUI {
+public class CLI {
     
     private final StatsService statsService;
     
@@ -17,7 +17,6 @@ public class CLI implements IUI {
         this.statsService = new StatsService(state);
     }
     
-    @Override
     public void displayStatistics(List<Activity> activities, int weight) {
         if (activities.isEmpty()) {
             System.out.println("No activities found in the provided files.");
@@ -66,7 +65,6 @@ public class CLI implements IUI {
         }
     }
     
-    @Override
     public void showUsage() {
         System.out.println("Fitness Activity Analyzer");
         System.out.println("==========================");

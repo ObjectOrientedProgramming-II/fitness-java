@@ -1,9 +1,12 @@
 package gr.hua.coach;
 
-import gr.hua.coach.UI.UIProvider;
-import gr.hua.coach.UI.IUI;
+import gr.hua.coach.UI.GUI;
+import gr.hua.coach.UI.CLI;
+
 import gr.hua.coach.model.Activity;
 import gr.hua.coach.parser.TCXParser;
+
+import javafx.application.Application;
 
 import java.util.*;
 import java.io.File;
@@ -22,22 +25,21 @@ public class Main {
     
     public static void main(String[] args) {
         if (args.length == 0 || hasGuiFlag(args)) {
-            UIProvider.launchGUI(args);
+            Application.launch(GUI.class, args);
             return;
         }
         
-        UIProvider uiProvider = new UIProvider();
-        IUI ui = uiProvider.get();
         
         List<String> tcxFiles = parseCommandLineArguments(args);
-        
+        CLI cli = new CLI();
+
         if (tcxFiles.isEmpty()) {
-            ui.showUsage();
+            cli.showUsage();
             return;
         }
         
         List<Activity> activities = parseActivities(tcxFiles);
-        ui.displayStatistics(activities, weight);
+        cli.displayStatistics(activities, weight);
     }
     
     private static boolean hasGuiFlag(String[] args) {
