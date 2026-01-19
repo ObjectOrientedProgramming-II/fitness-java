@@ -9,6 +9,8 @@ public class CaloriesCalculator {
     private static final double SWIMMING_MULTIPLIER = 12.0;
     private static final double DEFAULT_MULTIPLIER = 7.0;
     
+    // Ypologizei thermides me simple i HR-based tipo logariasmou analoga me profile (weight/age/gender).
+
     public double calculateCaloriesSimple(Activity activity, double weight) {
         double multiplier = getMultiplierForSport(activity.getSport());
         double totalTimeHours = calculateTotalTimeHours(activity);

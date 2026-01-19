@@ -11,7 +11,7 @@ public class TrackPoint {
     private Integer heartRate;
     private Double cadence;
     
-    public LocalDateTime getTime() { return time; }
+    public LocalDateTime getTime() { return time; } //Getters kai setters gia ola ta pedia tou TrackPoint
     public void setTime(LocalDateTime time) { this.time = time; }
     
     public Double getLatitude() { return latitude; }

@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+
+// Kanei parsing .tcx arxeion se Java model objects (Activity/Lap/Track/TrackPoint).
+// H parsing logiki einai encapsulated edo gia na menei katharo to upoloipo system.
+
 public class TCXParser {
     private static final DateTimeFormatter d_formatter = 
         DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[.SSS]'Z'");
