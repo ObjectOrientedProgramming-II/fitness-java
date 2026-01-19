@@ -10,7 +10,6 @@ public class GoalTracker {
     private double dailyGoal = 0;
     private final Events events = Events.get();
     
-    // Store calories per day
     private final Map<LocalDate, Double> dailyCalories = new HashMap<>();
     
     public void setDailyGoal(double goal) {
@@ -61,11 +60,10 @@ public class GoalTracker {
         int achieved = 0;
         int total = dailyCalories.size();
         
-        // Today's status
         LocalDate today = LocalDate.now();
         if (dailyCalories.containsKey(today)) {
             double todayCal = dailyCalories.get(today);
-            sb.append("\n📅 TODAY:\n");
+            sb.append("\nTODAY:\n");
             sb.append(String.format("   %s\n", today));
             sb.append(String.format("   Calories: %.0f / %.0f kcal\n", todayCal, dailyGoal));
             if (todayCal >= dailyGoal) {
@@ -76,7 +74,6 @@ public class GoalTracker {
             }
         }
         
-        // History
         sb.append("\nHISTORY:\n");
         sb.append("───────────────────────────────────────────\n");
         
@@ -97,7 +94,6 @@ public class GoalTracker {
                 sb.append("\n");
             });
         
-        // Count achievements (excluding today if already counted)
         for (Map.Entry<LocalDate, Double> entry : dailyCalories.entrySet()) {
             if (!entry.getKey().equals(today) && entry.getValue() >= dailyGoal) {
                 achieved++;
